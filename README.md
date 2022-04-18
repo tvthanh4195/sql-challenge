@@ -1,4 +1,4 @@
-# sql-challenge
+# SQL Challenges.
 
 ## [The PADS](https://www.hackerrank.com/challenges/the-pads/) (medium)
 ```sql
