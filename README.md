@@ -274,3 +274,31 @@ where s1.id = f2.id and p2.salary > p1.salary
 order by p2.salary) t;
 ```
 - Explain: Ta chỉ cần tìm những người có bạn thân được offer lương cao hơn, sau đó tiền hành sắp xếp và select name.
+## [Interviews](https://www.hackerrank.com/challenges/interviews/problem) (hard)
+```sql
+select t1.contest_id, t1.hacker_id, t1.name,  t2.sum_s, t2.sum_ac_sub, t1.sum_v, t1.sum_unique_v
+from (select contest_id, hacker_id, name, sum(tot_v) as sum_v, sum(tot_unique_v) as sum_unique_v
+from
+(select c1.contest_id, c1.hacker_id, c1.name, ch1.challenge_id, sum(v.total_views) as tot_v, sum(v.total_unique_views) as tot_unique_v
+from
+contests c1
+join colleges cl1 on c1.contest_id = cl1.contest_id
+join challenges ch1 on ch1.college_id = cl1.college_id
+join view_stats v on ch1.challenge_id = v.challenge_id
+group by c1.contest_id, c1.hacker_id, c1.name, ch1.challenge_id) t
+group by contest_id, hacker_id, name
+order by contest_id) t1,
+(select contest_id, hacker_id, name, sum(tot_sub) as sum_s, sum(tot_ac_sub) as sum_ac_sub
+from
+(select c1.contest_id, c1.hacker_id, c1.name, ch1.challenge_id, sum(s.total_submissions) as tot_sub, sum(s.total_accepted_submissions) as tot_ac_sub
+from
+contests c1
+join colleges cl1 on c1.contest_id = cl1.contest_id
+join challenges ch1 on ch1.college_id = cl1.college_id
+join submission_stats s on ch1.challenge_id = s.challenge_id
+group by c1.contest_id, c1.hacker_id, c1.name, ch1.challenge_id) t
+group by contest_id, hacker_id, name
+order by contest_id) t2
+where t1.contest_id = t2.contest_id
+```
+- Explain: Ta chỉ cần dùng join và tính riêng cho submission và view, sau đó gộp kết quả.
