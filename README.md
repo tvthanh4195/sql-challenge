@@ -213,7 +213,7 @@ order by x;
   - x < y: khi đó ta chỉ kiểm tra liệu có tồn tại cặp (y, x) hay không.
 
 ## [15 Days of Learning SQL](https://www.hackerrank.com/challenges/15-days-of-learning-sql) (hard)
-```
+```sql
 select submission_date, 
 (select count(distinct hacker_id)
 from submissions s2
