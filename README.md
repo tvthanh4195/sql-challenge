@@ -1,6 +1,6 @@
 # sql-challenge
 
-## The PADS (medium)
+## [The PADS](https://www.hackerrank.com/challenges/the-pads/) (medium)
 ```sql
 select concat(name, '(', substring(occupation, 1, 1), ')') as new_name
 from occupations
@@ -13,7 +13,7 @@ from (select convert(count(*), char) as cnt, lower(occupation) as occ
 ```
 - Explain: Bài toán chỉ yêu cầu xử lý chuỗi cơ bản kèm theo hàm count.
 
-## Binary Tree Nodes (medium)
+## [Binary Tree Nodes](https://www.hackerrank.com/challenges/binary-search-tree-1) (medium)
 ```sql
 select n, 'Leaf'
 from bst as bi
@@ -32,7 +32,7 @@ order by n;
   - Các đỉnh lá là các đỉnh mà không có đỉnh nào nhận nó làm đỉnh cha.
   - Gốc của cây là đỉnh mà đỉnh cha của nó là null.
   - Các đỉnh còn lại.
-## New Companies (medium)
+## [New Companies](https://www.hackerrank.com/challenges/the-company) (medium)
 ```sql
 select c.company_code, c.founder, count(distinct l.lead_manager_code), count(distinct s.senior_manager_code), count(distinct m.manager_code), count(distinct e.employee_code)
 from company c
@@ -45,7 +45,7 @@ order by c.company_code;
 ```
 - Explain: Ta chỉ cần join các bản và dùng hàm count.
 
-## Weather Observation Station 20 (medium)
+## [Weather Observation Station 20] (https://www.hackerrank.com/challenges/weather-observation-station-20) (medium)
 ```sql
 select round(lat_n, 4)
 from station s 
@@ -64,7 +64,7 @@ where t.id = 250
 -Explain: Ta có thể sắp xếp các giá trị theo thứ tự tăng dần và đánh thứ tự. Sau đó chọn lấy phần tử chính giữa (ở đây là 250)
 Với cách này, ta có thể mở rộng cho trường hợp số lượng số hạng là chẵn.
 
-## Weather Observation Station 18 (medium)
+## [Weather Observation Station 18] (https://www.hackerrank.com/challenges/weather-observation-station-18) (medium)
 ```sql
 select round((select max(lat_n) from station) - (select min(lat_n) from station)
 + (select max(long_w) from station) - (select min(long_w) from station), 4)
@@ -73,7 +73,7 @@ limit 1
 ```
 -Explain: Bài toán chỉ yêu cầu tính khoảng cách Mahattan giữa 2 điểm cho sẵn.
 
-## Weather Observation Station 19 (medium)
+## [Weather Observation Station 19] (https://www.hackerrank.com/challenges/weather-observation-station-19) (medium)
 
 ```sql
 select round(sqrt(power((select max(lat_n) from station) - (select min(lat_n) from station), 2)
@@ -82,8 +82,21 @@ select round(sqrt(power((select max(lat_n) from station) - (select min(lat_n) fr
                  limit 1;
 ```
 - Explain: Giống bài trên tuy nhiên yêu cầu tính khoảng cách Euclidean.
-
-## Top Competitors (medium)
+## [The Report] (https://www.hackerrank.com/challenges/the-report) (medium)
+```sql
+select s.name as student_name, (select grade from grades where s.marks between min_mark and max_mark) as score, s.marks as real_score
+from students s
+where s.marks >= 70
+order by score desc, student_name;
+ 
+select 'NULL' as student_name, (select grade from grades where s.marks between min_mark and max_mark) as score, s.marks as real_score
+from students s
+where s.marks < 70
+order by score desc, real_score;
+```
+- Explain: Ta chỉ cần xác định grade phù hợp cho mỗi thí sinh, sau đó in thông tin theo yêu cầu. Để ý rằng với những học sinh
+có điểm dưới 70 thì tên sẽ bị thay bằng NULL.
+## [Top Competitors] (https://www.hackerrank.com/challenges/full-score) (medium)
 ```sql
 select id, name
 from (select id, name, count(*) as wins
@@ -99,7 +112,7 @@ where wins > 1;
 - Explain: Trong bài này, mỗi người có thể submit nhiều lần cho 1 contest, do đó ta chỉ lấy điểm cao nhất cho mỗi contest
 đối với từng người. Việc còn lại ta chỉ cần kiểm tra xem với lượng điểm đó thì người đó có đạt full score hay không. Cuối cùng ta 
 chỉ cần in ra những người đạt full score nhiều hơn 1 contest.
-## Ollivander's Inventory (medium)
+## [Ollivander's Inventory] (https://www.hackerrank.com/challenges/harry-potter-and-wands) (medium)
 ```sql
 select w.id, p.age, w.coins_needed, w.power
 from wands w
@@ -113,7 +126,7 @@ order by w.power desc, p.age desc, w.coins_needed
 - Explain: Đề bài yêu cầu in ra những cây đũa phép mà Ron có thể thích, tuy nhiên ở đây **đề bài bị thiếu mất 1 phần:
 những cây đũa phép được in ra sẽ phải là cây đũa phép rẻ nhất trong số những cây đũa phép có cùng age và power**.
 Điều này được chỉ ra bởi 1 số bình luận ở mục discussion.
-## Challenges (medium)
+## [Challenges] (https://www.hackerrank.com/challenges/challenges) (medium)
 ```sql
 select t.id, t.name , t.created
 from (select h.hacker_id as id, h.name as name, count(*) as created
@@ -137,7 +150,7 @@ order by t.created desc, t.id;
 Để kiểm tra số lượng contest tạo ra bởi 1 người nào đó có duy nhất hay không ta chỉ cần kiểm tra xem có ai đó khác
 tạo ra số lượng contest tương tự hay không. Đây là 1 câu không khó nhưng câu lệnh truy vấn khá loằng ngoằng.
 
-## Contest Leaderboard (medium)
+## [Contest Leaderboard] (https://www.hackerrank.com/challenges/contest-leaderboard) (medium)
 ```sql
 select id, name, sum(score) as total_score
 from (select h.hacker_id as id, h.name as name, s.challenge_id as c_id, max(s.score) as score
@@ -151,7 +164,7 @@ order by total_score desc, id;
 - Explain: Đầu tiên do 1 người có thể submit nhiều lần cho 1 challenge nên ta sẽ chọn submission có điểm cao nhất.
 Tiếp đó ta chỉ cần sum tất cả các challenge mà người đó tham gia, cuối cùng ta sẽ loại bỏ những người có tổng điểm là 0.
 
-## Print Prime Number (medium)
+## [Print Prime Number] (https://www.hackerrank.com/challenges/print-prime-numbers) (medium)
 ```sql
 select string_agg(t.val, '&')
 from (SELECT (ones.n + 10*tens.n + 100*hundreds.n) as val
@@ -173,7 +186,7 @@ hết cho số nào trong khoảng từ 2 đến số đó trừ đi 1 hay khôn
 select '2&3&5&7&11&13&17&19&23&29&31&37&41&43&47&53&59&61&67&71&73&79&83&89&97&101&103&107&109&113&127&131&137&139&149&151&157&163&167&173&179&181&191&193&197&199&211&223&227&229&233&239&241&251&257&263&269&271&277&281&283&293&307&311&313&317&331&337&347&349&353&359&367&373&379&383&389&397&401&409&419&421&431&433&439&443&449&457&461&463&467&479&487&491&499&503&509&521&523&541&547&557&563&569&571&577&587&593&599&601&607&613&617&619&631&641&643&647&653&659&661&673&677&683&691&701&709&719&727&733&739&743&751&757&761&769&773&787&797&809&811&821&823&827&829&839&853&857&859&863&877&881&883&887&907&911&919&929&937&941&947&953&967&971&977&983&991&997';
 ```
 - Tuy nhiên với cách này thì có vẻ không được "chính đạo" cho lắm.
-## SQL Project Planning
+## [SQL Project Planning] (https://www.hackerrank.com/challenges/sql-projects) (medium)
 ```sql
 select start_date, min(end_date) as finished_date
 from (select start_date from projects where start_date not in (select end_date from projects)) a,
@@ -187,7 +200,7 @@ thoài gian nào đó là end_date của 1 đoạn khác thì chắc chắn nó 
 Tương tự cho end_date. Khi đó ta có thể select start_date và min(end_date) trong 2 danh sách trên sao cho end_date > start_date là
 được.
 
-## Symetric Pairs
+## [Symetric Pairs] (https://www.hackerrank.com/challenges/symmetric-pairs) (medium)
 ```sql
 select distinct x, y
 from functions f
@@ -199,7 +212,7 @@ order by x;
   - x = y: Khi đó ta sẽ đếm xem có bao nhiêu cặp có x = y, nếu có nhiều hơn 1 thì ta select cặp này.
   - x < y: khi đó ta chỉ kiểm tra liệu có tồn tại cặp (y, x) hay không.
 
-## 15 Days of Learning SQL (hard)
+## [15 Days of Learning SQL] (https://www.hackerrank.com/challenges/15-days-of-learning-sql) (hard)
 ```
 select submission_date, 
 (select count(distinct hacker_id)
@@ -221,7 +234,7 @@ số lượng người đã submit liên tục ít nhất 1 lần trong mỗi ng
 ra id và name của người có số lần submit cao nhất trong ngày đó (không quan tâm đến việc người đó có submit những 
 ngày trước đó hay không).
 
-## Occupations
+## [Occupations] (https://www.hackerrank.com/challenges/occupations) (medium)
 ```sql
 select d, p, s, a
 from
@@ -248,7 +261,7 @@ using (id);
 Ở đây ta có số giá trị là 7, khi đó ta sẽ tiền hành thêm NULL vào những nghề không đủ 7 giá trị. Để có thể join các bảng row by row
 ta sẽ phải thêm id cho mỗi hàng => Ở đây ta sẽ cần 1 phương án tốt hơn bởi có quá nhiều "magic number"
 
-## Placements (medium)
+## [Placements] (https://www.hackerrank.com/challenges/placements) (medium)
 ```sql
 select name
 from (select distinct name, p1.salary as v1, p2.salary as v2
